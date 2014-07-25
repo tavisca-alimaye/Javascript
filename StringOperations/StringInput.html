@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+
+<title> String functions </title>
+
+<script src="StringOp.js"></script>
+</head>
+
+
+<body>
+<form>
+    First String:<input type="text" id="string1"><br>
+
+    Second String:<input type="text" id="string2">
+
+    Third String(For substring & replace only):<input type="text" id="string3"><br>
+    
+    <select id="select1" onchange="StringOperations();">
+          <option value="default">Choose Operation</option>
+          <option value="length">Length</option>
+          <option value="concat">Concat</option>
+          <option value="substring">substring</option>
+          <option value="charat">charat</option>
+          <option value="lastindexof">lastindexof</option>
+          <option value="indexof">indexof</option>
+          <option value="replace">replace</option>
+    </select><br>
+
+    Result:<input type="text" id="result" class="pull-right">
+</form>
+</body>
+
+
+</html>
