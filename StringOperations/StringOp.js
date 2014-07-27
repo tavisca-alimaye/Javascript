@@ -8,13 +8,13 @@ var StringOperations = function () {
     switch (dropdownval) {
         case 'Length':
             len = string_obj1.strlen;
-            res.value = len;
+            res.innerHTML = len;
             break;
         case 'Concat':
             var text2 = document.getElementById("string2");
             var string_obj2 = new string_exp(text2.value);
             var concated = string_obj1.strconcat(string_obj2);
-            res.value = concated;
+            res.innerHTML = concated;
             break;
         case 'substring':
             var text2 = document.getElementById("string2");
@@ -24,34 +24,34 @@ var StringOperations = function () {
             var start = parseInt(text2, 10);
             var end = parseInt(text3,10);
             var sub = string_obj1.strsubstring(start,end);
-            res.value = sub;
+            res.innerHTML = sub;
             break;
         case 'charat':
             var text2 = document.getElementById("string2");
             text2 = text2.value;
             var ch = string_obj1.strcharAt(text2);     
             if (ch < 0)
-                throw(error);
+                res.innerHTML="";
             else
-                res.value = ch;
+                res.innerHTML = ch;
             break;
         case 'lastindexof':
             var text2 = document.getElementById("string2");
             text2 = text2.value;
-            res.value = string_obj1.strlastIndexOf(text2);
+            res.innerHTML = string_obj1.strlastIndexOf(text2);
             break; 
         case 'indexof':
             var text2 = document.getElementById("string2");
             text2 = text2.value;
             //var chstring = new string_exp(text2);
-            res.value = string_obj1.strIndexOf(text2);
+            res.innerHTML = string_obj1.strIndexOf(text2);
             break; 
         case 'replace':
             var text2 = document.getElementById("string2");
             text2 = text2.value;
             var text3 = document.getElementById("string3");
             text3 = text3.value;
-            res.value = string_obj1.strreplace(text2,text3);
+            res.innerHTML = string_obj1.strreplace(text2,text3);
             break;
     }
 }
@@ -64,6 +64,10 @@ var string_exp = function(val){
     this.strsubstring = function(starting,ending){
         var i;
         var temp = "";
+        if(isNaN(starting))
+            return "Given Index is not a number";
+        if(ending > this.strlen || ending == undefined || isNaN(ending))
+            ending = this.strlen-1;
         for(i = starting;i<=ending;i++)
         {
             temp += this.value[i];
@@ -71,7 +75,7 @@ var string_exp = function(val){
         return temp;
     }
     this.strcharAt = function(index){
-        if(index >= this.strlen)
+        if(index >= this.strlen || index < 0 || isNaN(index))
             return -1;
         else
             return this.value[index];
@@ -83,6 +87,10 @@ var string_exp = function(val){
             if(this.value[i] === ch)
                 return i;
             i--;
+        }        
+        if(i<0)
+        {
+            return "Match Not Found";
         }
     }
     this.strIndexOf = function(ch){
@@ -92,6 +100,10 @@ var string_exp = function(val){
             if(this.value[i] === ch)
                 return i;
             i++;
+        }
+        if(i===this.strlen)
+        {
+            return "Match Not Found";
         }
     }
     /*this.strsubIndexOf = function(ch){                  //for substring
