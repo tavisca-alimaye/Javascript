@@ -1,5 +1,4 @@
 var StringOperations = function () {
-    var e = document.getElementById("select1");
     var dropdownval = e.options[e.selectedIndex].text;
     var text1 = document.getElementById("string1");
     var res = document.getElementById("result");
@@ -153,3 +152,5 @@ var mylength = function(){
         i+= 1;
     return i;
 }
+var e = document.getElementById("select1");
+e.onchange = StringOperations;
