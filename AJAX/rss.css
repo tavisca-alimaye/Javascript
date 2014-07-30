@@ -1,0 +1,48 @@
+.deal-content-div{
+	-webkit-box-shadow: 12px 12px 5px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 12px 12px 5px 0px rgba(0,0,0,0.75);
+	box-shadow: 12px 12px 5px 0px rgba(0,0,0,0.75);
+	height: 250px;
+	position: relative;
+	background: #a6c7f0;
+	margin-top:20px;
+	margin-bottom: 20px;
+}
+.description-div{
+	color: #232323;
+	max-height: 300px;
+	width: 50%;
+	text-align: justify;
+	float: left;
+	padding-left: 10px;
+
+}
+.proper-noun-name{
+	color: #701c16;
+}
+.image-div{
+	float: right;
+	height: 250px;
+	width: 250px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-right: 10px;
+}
+.set-float-left{
+	float: left;
+}
+
+.set-float-right{
+	float: right;
+}
+
+.right-side-div{
+	float: right;
+	text-align: justify;
+	width: 50%;
+}
+
+.start-end-date-div{
+	width: 50%;
+	color: #000;
+}

@@ -3,17 +3,18 @@
 <head>
 
 <title> Show RSS Feed </title>
-
-<script src="ShowRssFeed.js"></script>
+<link rel="stylesheet" href="rss.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+<script src="RssUsingCss.js"></script>
 </head>
 
 <body>
-<form>
+<form class = "container">
     <select id="select1" onchange="showFeed();">
           <option value="default">Choose Deals Category</option>
           <option value="http://dev-mystique.tavisca.com/api/deals/all?token=gdxuegfkdvfkehep00gwfwlg&$filter=Type eq 'hotel'">Hotels</option>
           <option value="http://dev-mystique.tavisca.com/api/deals/all?token=gdxuegfkdvfkehep00gwfwlg&$filter=Type eq 'car'">Cars</option>
-          <option value=" http://dev-mystique.tavisca.com/api/deals/all?token=gdxuegfkdvfkehep00gwfwlg&$filter=Type eq 'activity'">Activities</option>
+          <option value="http://dev-mystique.tavisca.com/api/deals/all?token=gdxuegfkdvfkehep00gwfwlg&$filter=Type eq 'activity'">Activities</option>
     </select><br>
 </form>
   <div class = "container" id="displayArea">
