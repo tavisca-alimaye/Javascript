@@ -2,6 +2,7 @@ var showFeed = function(){
     var e = document.getElementById("select1");
     var url = e.options[e.selectedIndex].value;
     var dropdownInd = e.selectedIndex;
+    var carDetails = [""]
     var xmlhttp;
 	xmlhttp=new XMLHttpRequest();
 	var parent = document.getElementById("displayArea");
@@ -13,33 +14,34 @@ var showFeed = function(){
 		if (xmlhttp.readyState==4 && xmlhttp.status==200){
 			var result =JSON.parse(xmlhttp.responseText);
 			switch(dropdownInd){
+				case 0:
+					break;
 				case 1:
 					var count = result.deals.length;
 					for(var counter = 0;counter<count;counter++)
 					{
 						var hotels = result.deals[counter];
+
 						var hoteldiv = document.createElement("div");
+						hoteldiv.className = "deal-content-div";
 						hoteldiv.id = "hdiv"+counter;
-						hoteldiv.style.border = "2px solid #222222";
 						var hoteldesc = document.createElement("div");
-						hoteldesc.style.background = "#FFFFFF";
-						hoteldesc.style.color = "#232323";
-						hoteldiv.appendChild(hoteldesc);
+						hoteldesc.className = "description-div";
 						var hnamelabel = document.createElement("H1");
-						hnamelabel.style.color = "#91D65C";
-						hnamelabel.innerHTML = hotels.hotelName;
+						hnamelabel.className = "proper-noun-name";
+						hnamelabelText = document.createTextNode(hotels.hotelName);
+						hnamelabel.appendChild(hnamelabelText);
 						hoteldesc.appendChild(hnamelabel);
 
 						var hdesc = document.createTextNode(hotels.description);
-						hoteldesc.appendChild(hdesc);						
+						hoteldesc.appendChild(hdesc);	
+						hoteldiv.appendChild(hoteldesc);					
 
 						var hotelimg = document.createElement("img");
+						hotelimg.className = "image-div";
 						hotelimg.src = hotels.imageUrl;
-						hotelimg.style.width = "300px";
-						hotelimg.style.height = "300px";
 						hoteldiv.appendChild(hotelimg);
-						parent.appendChild(hoteldiv);
-					
+						parent.appendChild(hoteldiv);					
 					}
 					break;
 				case 2:
@@ -50,63 +52,59 @@ var showFeed = function(){
                        if(cars.rentalCompanyName !== "")
                        {
 							var cardiv = document.createElement("div");
+							cardiv.className = "deal-content-div";
 							cardiv.id = "cdiv"+counter;
-							cardiv.style.border = "2px solid #222222";
-							cardiv.style.position = "relative";
-							cardiv.style.height = "400px";
 							var cardesc = document.createElement("div");
-							cardesc.style.background = "#FFFFFF";
-							cardesc.style.color = "#232323";
+							cardesc.className = "description-div";
 							cardiv.appendChild(cardesc);
 							var cnamelabel = document.createElement("H1");
-							cnamelabel.style.color = "#91D65C";
-							cnamelabel.innerHTML = "Company : " + cars.rentalCompanyName;
+							cnamelabel.className = "proper-noun-name";
+							cnamelabelText = document.createTextNode(cars.rentalCompanyName);
+							cnamelabel.appendChild(cnamelabelText);
 							cardesc.appendChild(cnamelabel);
 
 							var cdesc = document.createTextNode(cars.description);
 							cardesc.appendChild(cdesc);
 
 							var loc = document.createElement("H2");
-							loc.style.color = "#000";
-							loc.innerHTML = "Drop Location : " + cars.dropOffLocation.city;
+							loc.className = "proper-noun-name";
+							locText = document.createTextNode("Drop Location : " + cars.dropOffLocation.city);
+							loc.appendChild(locText);
 							cardesc.appendChild(loc);
 
-							var validityperiod = document.createElement("H3");
-							validityperiod.style.color = "#f00";
-							validityperiod.innerHTML = "Validity(From start To end date) : ";
-							cardesc.appendChild(validityperiod);
+							var bookingValidity = document.createElement("div");
+							bookingValidity.className = "right-side-div";
+							cardiv.appendChild(bookingValidity);
+							var validityperiod = document.createElement("H2");
+							validityperiod.className = "proper-noun-name";
+							validityperiodText = document.createTextNode("Validity(From start date To end date)");
+							validityperiod.appendChild(validityperiodText);
+							bookingValidity.appendChild(validityperiod);
 
 							var startdiv = document.createElement("div");
-							startdiv.style.width = "50%";
-							startdiv.style.float = "left";
-							startdiv.style.color = "#000";
+							startdiv.className = "set-float-left start-end-date-div"
 								var start = document.createElement("H4");
-								start.style.color = "#300";
-								start.innerHTML = "START";
+								var startText = document.createTextNode("START");
+								start.appendChild(startText);
 								startdiv.appendChild(start);
 								var vdate = document.createTextNode(cars.validityPeriod.start.date);
 								startdiv.appendChild(vdate);
 								var vtime = document.createTextNode(", " + cars.validityPeriod.start.time); 
 								startdiv.appendChild(vtime);
-							cardesc.appendChild(startdiv);
+							bookingValidity.appendChild(startdiv);
 
 							var enddiv = document.createElement("div");
-							enddiv.style.width = "50%";
-							enddiv.style.float = "right";
-							enddiv.style.color = "#000";
+							enddiv.className = "set-float-right start-end-date-div";
 								var end = document.createElement("H4");
-								end.style.color = "#300";
-								end.innerHTML = "END";
+								var endText = document.createTextNode("END");
+								end.appendChild(endText);
 								enddiv.appendChild(end);
 								var venddate = document.createTextNode(cars.validityPeriod.end.date);
 								enddiv.appendChild(venddate);
 								var vendtime = document.createTextNode(", " + cars.validityPeriod.end.time); 
 								enddiv.appendChild(vendtime);
-							cardesc.appendChild(enddiv);
+							bookingValidity.appendChild(enddiv);
 
-							var carimg = document.createElement("img");
-							carimg.src = cars.imageUrl;
-							cardiv.appendChild(carimg);
 							parent.appendChild(cardiv);
                        }
                    	}
@@ -116,9 +114,9 @@ var showFeed = function(){
                     	if(count === 0)
                     	{
                     		var activitydiv = document.createElement("H1");
-                    		activitydiv.style.color = "#f00";
-                    		activitydiv.innerHTML = "SORRY!!!THERE ARE NO DEALS AVAILABLE FOR ACTIVITIES!!!";
-                    		activitydiv.style.align = "centre";
+                    		activitydiv.style.color = "proper-noun-name";
+                    		var activitydivText = document.createTextNode("SORRY!!!THERE ARE NO DEALS AVAILABLE FOR ACTIVITIES!!!");
+                    		activitydiv.appendChild(activitydivText);
                     		parent.appendChild(activitydiv);
                     	}
                     break;
